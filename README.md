@@ -5,7 +5,7 @@
 
 ## Current state
 #### The movement is setup.
-#### Exiting the game by pressing a number rather than typing exit.
+#### Exit the game by pressing a number rather than typing exit.
 #### Rather than using a mov command, you use options.
 #### The Dr. (the player) is randomly placed on the map.
 #### You can navigate the map infinitely.
