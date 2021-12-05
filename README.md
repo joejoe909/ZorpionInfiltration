@@ -1,6 +1,6 @@
 # Zorpion Infiltration
 #### Download the repo and then use the powerpoint or pdf manual to see my designs. 
-#### You can my design notes to get an idea of how i design as I work on this project. 
+#### You can see my design notes to get an idea of how i design as I work on this project. 
 #### Zorpion Infiltration is a basic python text based game as a school project.
 
 ## Current state
