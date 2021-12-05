@@ -71,14 +71,15 @@ def welcome(doctor):
     clear()
     print(f'Hello Dr. {doctor},\n\n','A strange creature has breeched the hull of the \n', 
             'International Study For Life Survial In Space Experimentation Lab, you\n',
-            'must lure it into a room with incineration EVAC to expunge it fromt he ship.\n')
+            'must lure it into a capsule with incineration EVAC to expunge it fromt he ship.\n')
 
 #this function will display location and available options based on location. 
 def menu():
     clear()
     global capsules, curLoc, choices
-    print(f'You are in Capsule {curLoc} you can:', end= '\n')
-    
+    #Display Map.
+    print(f'Dr. {doctor}, you are in Capsule {curLoc} you can:', end= '\n')
+    #print( zorpion location )    
     #now setup capsule move menu from capsule[curLoc]
     #options = capsules[curLoc]
     kys = capsules[curLoc].keys()
@@ -88,10 +89,13 @@ def menu():
 
     choice = [[],[],[],[]]
 
+    #Display movement operations available depending on location. 
     for z in kys:
         print(sel, z ,'to sector' ,capsules[curLoc][z], end='\n')
         choice[sel] = capsules[curLoc][z]
         sel+=1
+
+    
 
     choices = choice  
 
