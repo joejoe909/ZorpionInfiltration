@@ -1,9 +1,11 @@
 '''
 Author: Joe Farrish
 Title: Zorpion Infiltration.
+GitHub: https://github.com/joejoe909/ZorpionInfiltration
+
 Story: You are apart of scientific expedition into deep space when a part of the ship is breeched by a strange
 creature that has killed off most of the crew. You have to lure it to a room with incineration vac to kill and
-expunge it from the ship.
+expunge it from the ship. 
 
 Items you can get to help you.
 		Jet pack – will increase space traveled to 1  capsules per move (2 sectors).
