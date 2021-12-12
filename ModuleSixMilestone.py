@@ -56,15 +56,17 @@ clear()
 doctor = ''
 sector = 1
 curLoc = '' # current location is a string with x,y values in it.
+curLocInt = [] #[x,y] 
 choices = [[],[],[],[]]
 exitVal = 99
 
 
 #set Zorpion
 zorpionLoc = ''
+zrpLocInt = []# [x, y]  setLoc loc in int list.  
 zrpmv = False #zrp move
+zMv = 1 #The amount of capsules the zorpion can move per move can be 1 or 2. 
 zCompelled = False
-zrpLoc = [] # [x, y]  setLoc loc in int array.  
 zrpPath = [] # [x, y]  setZPath. 
 
 #------------------------prompt for name.
@@ -93,9 +95,16 @@ def setZorp(*args):
 #this function will display location and available options based on location. 
 def menu():
     clear()
-    global capsules, curLoc, choices
+    global capsules, curLoc, choices, incRooms, zorpionLoc, zrpPath  
+    
+    if(zCompelled):
+        print('Warning Zorpion is compelled! Movement is * 2!')
+
+    
     #Display Map.
-    print(f'Dr. {doctor}, you are in Capsule {curLoc}, the Zorpion is at {zorpionLoc} you can:', end= '\n')
+    print(f'Incineration rooms are in capsules {incRooms[0]}, {incRooms[1]}, {incRooms[2]}', end ='\n')
+    print(f'Zorpion location is at: {zorpionLoc}, current path is: {zrpPath}\n')
+    print(f'Dr. {doctor}, you are in Capsule {curLoc}, you can:', end= '\n')
     #print( zorpion location )    
     #now setup capsule move menu from capsule[curLoc]
     #options = capsules[curLoc]
@@ -121,7 +130,7 @@ def getInp():
 
     while not ((gtoLoc >= 0) and (gtoLoc <= len(choices))):
         
-        gtoLoc = int(input('Enter your Selection or type the number {exitVal} to exit the game:'))
+        gtoLoc = int(input(f'Enter your Selection or type the number {exitVal} to exit the game:'))
         
         if gtoLoc == exitVal:
             print('Thanks for playing Zorpion Infiltration!')
@@ -135,25 +144,127 @@ def getInp():
 
 #randomly place the user and Zorpion on the map
 def randomPlace():
+    global curLocInt
     x = random.randrange(-2, 2)
     y = int
 
     if x ==0:
-        y = random.randrange(0,5)
+        y = random.randrange(0,5)   
     else:
         y = random.randrange(1, 3, 1)
         if y == 2:
             y = 3
     return f'{x},{y}'
 
+# Manage Logical Movement of the Zorpion
+def zorpMv():
+    #based on current location make way to the path
+    global zrpLocInt, zorpionLoc,curLocInt,zCompelled,zMv, curLoc, zrpPath, capsules 
+    zrpLocInt = locInInt(zorpionLoc)
+    curLocInt = locInInt(curLoc)
 
-#main while loop.
+    zx = zrpLocInt[0]
+    zy = zrpLocInt[1]
+
+    mvs = []
+    # Zorpion Move value
+    zorpMovVal = []
+
+    quadPoint1 = [0,1]
+    quadPoint2 = [0,3]
+
+    cx = curLocInt[0]
+    cy = curLocInt[1]
+
+    if (zx == cx) or (zy == cy):
+        zCompelled = True
+        zMv = 2
+        zrpPath = curLocInt
+        # print('Warning The Zorpion is Compelled! Movement * 2 !!! Bro you better run!!')
+
+    #get to location
+    #get choices
+    chc = str(f'{zx},{zy}')
+    choices = capsules[chc].values()
+    print('choices:', len(choices))
+    numChoice = len(choices)
+    for i in capsules[chc].values():
+        print('zorpion can go:', i)
+        mvs.append(i)
+
+    # if 1 choice
+    if numChoice == 1:
+        #move there
+        zrpLocInt = locInInt(mvs[0])
+        print('loc chnged to:', zrpLocInt)
+        zorpionLoc = f'{zrpLocInt[0], zrpLocInt[1]}'
+    # if 2 choices
+    if numChoice == 2:
+        choice1 = locInInt(mvs[0])
+        choice2 = locInInt(mvs[1])
+        
+        
+        #testing how to move on a path
+        zorpMovVal = [zrpLocInt[0] - zrpPath[0], zrpLocInt[1] - zrpPath[1]]
+        # how many quad points do we need to go through , to get to our path?
+        #zorpMovVal[0].append(zrpLocInt[0] - zrpPath[0])
+        # zorpMovVal[1].append(zrpLocInt[1] - zrpPath[1])
+        print("we need to move", zorpMovVal[0], zorpMovVal[1])
+        #invert values and subtract then move in 1 or 2 in that direction. 
+        
+
+
+        #if(zorpMovVal[0] > zrpPath[0]):
+
+
+        #compare zrpPath to each quad sector
+        #if both are close
+        #if both are further away
+
+    # if 4 choices
+    if numChoice == 4:
+        print('4 choices')
+
+
+    #move zorpion
+    moves = 0
+    while(moves < zMv):
+        #which of those allow a value closer to zrpPath
+        moves+=1
+
+
+
+  
+
+def stZorpPath():
+        x = random.randrange(-2, 2)
+        y = int
+
+        if x ==0:
+            y = random.randrange(0,5)
+        else:
+            y = random.randrange(1, 3, 1)
+            if y == 2:
+                y = 3
+        return [x,y]
+
+def locInInt(loc):
+    a = loc.split(',')
+    x = int(a[0])
+    y = int(a[1])
+    return [x,y]
+
+
+# Main game loop.
 running = 1
 while(running):
     getName()
     welcome(doctor)
     curLoc = randomPlace()
-    #movement loop
+    incRooms = [randomPlace(), randomPlace(), randomPlace() ]
+    zorpionLoc = randomPlace()
+    zrpPath = stZorpPath()
+
     #Randomly place items
     mv = True
     chs = False #user move
@@ -170,10 +281,11 @@ while(running):
             getInp()
             mv = True
             chs = False
-            #zrpmv = True    
+            zrpmv = True    
         
         while zrpmv:
-            pass
+            zorpMv()
+            zrpmv = False
             #based on zorpionLoc set a path 
                 #if x is 0 then move west if y > 3
                     #setpath to a value west
