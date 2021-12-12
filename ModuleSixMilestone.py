@@ -49,23 +49,31 @@ capsules = {
     '-2,3': {'Go North': '-1,3'},
 }
 
-#prompt for name.
+
 clear()
-#global vars
+#------------------------global vars
+#setup user.
 doctor = ''
 sector = 1
 curLoc = '' # current location is a string with x,y values in it.
 choices = [[],[],[],[]]
+exitVal = 99
 
+
+#set Zorpion
+zorpionLoc = ''
+zrpmv = False #zrp move
+zCompelled = False
+zrpLoc = [] # [x, y]  setLoc loc in int array.  
+zrpPath = [] # [x, y]  setZPath. 
+
+#------------------------prompt for name.
 def getName():
     global doctor
     doctor= input('Please enter your name, you\'r a doctor so make it prestigeous (i.e. Dr. Dingus): ')
 
 #Welcome Message
-
-
 clear()
-
 #Welcome the Dr.
 def welcome(doctor):
     clear()
@@ -73,12 +81,21 @@ def welcome(doctor):
             'International Study For Life Survial In Space Experimentation Lab, you\n',
             'must lure it into a capsule with incineration EVAC to expunge it fromt he ship.\n')
 
+#setup Zorpion
+def setZorp(*args):
+    global zorpionLoc ,zrpmv, zCompelled, zrpLoc, zrpPath   
+    zorpionLoc = args[0]
+    zrpmv = args[1]
+    zCompelled = args[2]
+    zrpLoc = args[3]
+    zrpPath = args[4]
+
 #this function will display location and available options based on location. 
 def menu():
     clear()
     global capsules, curLoc, choices
     #Display Map.
-    print(f'Dr. {doctor}, you are in Capsule {curLoc} you can:', end= '\n')
+    print(f'Dr. {doctor}, you are in Capsule {curLoc}, the Zorpion is at {zorpionLoc} you can:', end= '\n')
     #print( zorpion location )    
     #now setup capsule move menu from capsule[curLoc]
     #options = capsules[curLoc]
@@ -94,20 +111,19 @@ def menu():
         print(sel, z ,'to sector' ,capsules[curLoc][z], end='\n')
         choice[sel] = capsules[curLoc][z]
         sel+=1
-
-    
-
     choices = choice  
 
 #This Function gets the users input if the value is out of range it will loop unitl a valid choice is issued.
 #Entering 5 will exit the loop. 
 def getInp():
-    global choices, curLoc, playing
+    global choices, curLoc, playing, exitVal
     gtoLoc = -2
 
     while not ((gtoLoc >= 0) and (gtoLoc <= len(choices))):
-        gtoLoc = int(input('Enter your Selection or type the number 5 exit the game:'))
-        if gtoLoc == 5:
+        
+        gtoLoc = int(input('Enter your Selection or type the number {exitVal} to exit the game:'))
+        
+        if gtoLoc == exitVal:
             print('Thanks for playing Zorpion Infiltration!')
             sys.exit()
 
@@ -138,11 +154,14 @@ while(running):
     welcome(doctor)
     curLoc = randomPlace()
     #movement loop
+    #Randomly place items
     mv = True
-    chs = True
+    chs = False #user move
+      
     playing = True
+        
     while playing:
-        while mv:
+        while mv: 
             menu()
             mv = False
             chs = True
@@ -151,17 +170,18 @@ while(running):
             getInp()
             mv = True
             chs = False
-
+            #zrpmv = True    
+        
+        while zrpmv:
+            pass
+            #based on zorpionLoc set a path 
+                #if x is 0 then move west if y > 3
+                    #setpath to a value west
+            #user in the same axis axis as zorp zCompelled = True
     #print(capsules[randomPlace()])
     #ADD: Zorpion Moves
-
-
-
 
 #randomly place in a capsule
 #Hello Dr. Dingus you are now in randomly selected capsule.
 
 #begin loop
-
-
-
