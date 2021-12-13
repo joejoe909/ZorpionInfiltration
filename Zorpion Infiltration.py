@@ -18,6 +18,7 @@ Items you can get to help you.
 import os # For clearing the screen.
 import  random
 import sys
+import re #for regex
 
 
 def clear(): # Function to clear the screen.
@@ -143,8 +144,8 @@ def getInp():
 
     print(f'you selected: {choices[gtoLoc]}') 
     curLoc = choices[gtoLoc]
-    print('146 is type of', type(curLoc))
-    print('142: ' , curLoc)
+    print('147 is type of', type(curLoc))
+    print('148: ' , curLoc)
     if type(curLoc) == str:
         curLocInt = locInInt(curLoc)
     print(f'moved to {curLoc}')
@@ -177,10 +178,14 @@ def zorpMv():
         zrpPath = stZorpPath()
     
     if type(zorpionLoc) == str:
-        zrpLocInt = locInInt(zorpionLoc)
+        print('181',zorpionLoc)
+        zLoc = purifyLoc(zorpionLoc)
+        zrpLocInt = locInInt(zLoc)
     if type(curLoc) == str:
-        curLocInt = locInInt(curLoc)
-
+        print('184', curLoc)
+        zLoc = purifyLoc(curLoc)
+        curLocInt = locInInt(zLoc)
+        
     zx = zrpLocInt[0]
     zy = zrpLocInt[1]
 
@@ -262,8 +267,22 @@ def zorpMv():
         zorpionLoc = f'{zrpLocInt[0], zrpLocInt[1]}'
         print('zrp loc is now: ', zorpionLoc)
 
-  
 
+# Remove unwanted characters from a string
+def purifyLoc(loc):
+    pl = '('
+    pr = ')'
+    
+    if pl or pr in loc:
+        loc = loc.replace(pl, '')
+        loc = loc.replace(pr, '')        
+
+
+    return loc
+
+
+  
+# Sets the Zorpion Path in which he will traverse.
 def stZorpPath():
         x = random.randrange(-2, 2)
         y = int
