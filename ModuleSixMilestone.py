@@ -21,7 +21,7 @@ Items you can get to help you.
         Menu is on line 104
 
         TODO: We still need to get a good calculation for zorpion movement.
-        
+
 
 '''
 import os # For clearing the screen.
@@ -63,7 +63,7 @@ capsules = {
 clear()
 #------------------------global vars
 #setup user.
-doctor = ''
+doctor = '' # This is used for the name.
 sector = 1
 curLoc = '' # current location is a string with x,y values in it.
 curLocInt = [] #[x,y] 
@@ -79,10 +79,12 @@ zMv = 1 #The amount of capsules the zorpion can move per move can be 1 or 2.
 zCompelled = False
 zrpPath = [] # [x, y]  setZPath. 
 
-#------------------------prompt for name.
+
+# Prompt for name.
 def getName():
     global doctor
     doctor= input('Please enter your name, you\'r a doctor so make it prestigeous (i.e. Dr. Dingus): ')
+
 
 #Welcome Message
 clear()
@@ -105,13 +107,13 @@ def welcome(doctor):
 #this function will display location and available options based on location. 
 def menu():
     clear()
-    global capsules, curLoc, curLocInt, choices, incRooms, zorpionLoc, zrpPath  
+    global capsules, curLoc, curLocInt, choices, incRooms, zorpionLoc, zrpPath  # for OOD these will refer to the class.
     
     if(zCompelled):
         print('Warning Zorpion is compelled! Movement is * 2!')
 
     #Display Map.
-    print(f'Incineration rooms are in capsules {incRooms[0]}, {incRooms[1]}, {incRooms[2]}', end ='\n')
+    print(f'Incineration rooms are in capsules {incRooms[0]}, {incRooms[1]}, {incRooms[2]}', end ='\n') # These are generated on line:343. 
     print(f'Zorpion location is at: {zorpionLoc}, current path is: {zrpPath}\n')
     print(f'Dr. {doctor}, you are in Capsule {curLoc}, you can:', end= '\n')
     #print( zorpion location )    
@@ -294,6 +296,9 @@ def zorpMv():
         zorpionLoc = mvs[rndchc]
         zrpLocInt = locInInt(purifyLoc(zorpionLoc))
         print('zrp loc is now: ', zorpionLoc)
+
+def calcZorpionMv(): #user args since it can be 1,2 or 4
+    pass 
 
 
 
