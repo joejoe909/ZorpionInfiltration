@@ -20,6 +20,9 @@ Items you can get to help you.
         Input is controlled by getInp() on line 139
         Menu is on line 104
 
+        TODO: We still need to get a good calculation for zorpion movement.
+        
+
 '''
 import os # For clearing the screen.
 import  random
@@ -176,7 +179,7 @@ def zorpMv():
     # Based on current location make way to the path which is random at first but then 
     # Should change based on the user falling on axis or the path point is reached and then
     # A new path is randomly generated.
-    global zrpLoc, zrpLocInt, zorpionLoc,curLocInt,zCompelled,zMv, curLoc, curLocInt, zrpPath, capsules 
+    global zrpLocInt, zorpionLoc,curLocInt,zCompelled,zMv, curLoc, curLocInt, zrpPath, capsules 
     print(curLoc)
     
     if zrpPath == zrpLocInt:
@@ -292,7 +295,7 @@ def zorpMv():
         zrpLocInt = locInInt(purifyLoc(zorpionLoc))
         print('zrp loc is now: ', zorpionLoc)
 
-    
+
 
 # Remove unwanted characters from a string
 def purifyLoc(loc):
