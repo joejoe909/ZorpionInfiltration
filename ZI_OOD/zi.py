@@ -155,7 +155,7 @@ def locInInt(loc):
 # Main game loop.
 #---------------------------------------------------------
 running = 1
-while(running):
+while(running):  
     getName()
     welcome(doctor)
     curLoc = randomPlace()
