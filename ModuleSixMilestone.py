@@ -63,13 +63,19 @@ capsules = {
 clear()
 #------------------------global vars
 #setup user.
+
+##############
+#   Dr vars
+##############
 doctor = '' # This is used for the name.
 sector = 1
 curLoc = '' # current location is a string with x,y values in it.
 curLocInt = [] #[x,y] 
+
+
+## for the menu Perhaps put this in menu function
 choices = [[],[],[],[]]
 exitVal = 99
-
 
 #set Zorpion
 zorpionLoc = ''
@@ -78,7 +84,6 @@ zrpmv = False #zrp move
 zMv = 1 #The amount of capsules the zorpion can move per move can be 1 or 2. 
 zCompelled = False
 zrpPath = [] # [x, y]  setZPath. 
-
 
 # Prompt for name.
 def getName():
